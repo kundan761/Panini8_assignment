@@ -77,9 +77,11 @@ Once the application is running, navigate to `http://localhost:3000` in your bro
 - **Backend**: [Your Backend Deployment Link](#)
 
 ## Screenshots
-![Homepage](path/to/screenshot1.png)
-![Blog Feed](path/to/screenshot2.png)
-![Signup Page](path/to/screenshot3.png)
+![Homepage](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20020749.png)
+![Signup Page](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20020830.png)
+![Login Page](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20020851.png)
+![Create Blog Page](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20021043.png)
+![User Profile](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20020808.png)
 
 ## Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements.
