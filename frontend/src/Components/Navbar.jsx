@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { navItems } from "../constants/Navitems";
 import { Menu, X } from "lucide-react";
-import "./Navbar.css";
+import "../styles/Navbar.css"; 
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../constants/api";
-import "./Home.css"; // Import the CSS file
+import "../styles/Home.css"; 
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);

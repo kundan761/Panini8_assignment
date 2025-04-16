@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./UserProfile.css"; // Optional: separate CSS file for styling
+import "../styles/UserProfile.css";
 import { api } from "../constants/api";
 
 const UserProfile = () => {

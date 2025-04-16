@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Signup.css";
+import "../styles/Signup.css";
 import { api } from "../constants/api";
 import axios from 'axios';
 

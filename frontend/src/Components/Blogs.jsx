@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { api } from "../constants/api";
-import "./Blogs.css";
+import "../styles/Blogs.css";
 
 const Blogs = () => {
   const [formData, setFormData] = useState({
