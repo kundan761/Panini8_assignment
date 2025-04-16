@@ -73,8 +73,8 @@ To run this project locally, follow these steps:
 Once the application is running, navigate to `http://localhost:3000` in your browser to access the frontend. You can sign up or sign in to start using the blog features.
 
 ## Deployed Links
-- **Frontend**: [Your Frontend Deployment Link](#)
-- **Backend**: [Your Backend Deployment Link](#)
+- **Frontend**: [Your Frontend Deployment Link](https://panini8-assignment.vercel.app/)
+- **Backend**: [Your Backend Deployment Link](https://panini8-assignment.onrender.com)
 
 ## Screenshots
 ![Homepage](https://github.com/kundan761/Panini8_assignment/blob/main/frontend/public/screenshots/Screenshot%202025-04-17%20020749.png)
