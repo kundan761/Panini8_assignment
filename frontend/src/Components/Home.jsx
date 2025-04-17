@@ -15,14 +15,23 @@ const Home = () => {
 
   const isLoggedIn = !!sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
-  useEffect(() => {
+
+  const getLatestBlog = () => {
     axios
       .get(`${api}/blog/getLatestBlog`)
       .then((response) => {
         setBlogs(response.data);
-        setFilteredBlogs(response.data);
+        setFilteredBlogs(
+          selectedTag === "all"
+            ? response.data
+            : response.data.filter((blog) => blog.tags === selectedTag)
+        );
       })
       .catch((error) => console.error("Error fetching blogs:", error));
+  };
+  
+  useEffect(() => {
+    getLatestBlog();
   }, []);
   console.log(blogs);
 
@@ -51,6 +60,7 @@ const Home = () => {
             blog._id === id ? { ...blog, likes: [...blog.likes, userId] } : blog
           )
         );
+        getLatestBlog();
       })
       .catch((error) => {
         console.error(
@@ -125,6 +135,7 @@ const Home = () => {
         setCommentText("");
         setCommentingId(null);
         // Optional: refresh blog data here
+        getLatestBlog(); 
       } else {
         alert(data.message || "Failed to add comment");
       }
