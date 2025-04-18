@@ -1,11 +1,11 @@
 /* General Navbar Styles */
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
     padding: 16px 24px;
     z-index: 9999;
   }
@@ -18,10 +18,10 @@
     margin: 0 auto;
   }
   
-  .logo a {
+  .logo {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #38a169;
     text-decoration: none;
   }
   
@@ -106,7 +106,7 @@
   
     .mobile-nav-item {
       font-size: 16px;
-      padding: 16px 24px; /* Adjust padding for better spacing */
+      padding: 1px; /* Adjust padding for better spacing */
       margin-bottom: 15px; /* More space between items */
     }
   }

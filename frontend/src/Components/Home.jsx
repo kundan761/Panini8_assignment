@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../constants/api";
-import "../styles/Home.css"; 
+import "../styles/Home.css";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -9,9 +10,11 @@ const Home = () => {
   const [selectedTag, setSelectedTag] = useState("all");
   const [editId, setEditId] = useState(null);
   const [editTitle, setEditTitle] = useState("");
+  const [editTags, setEditTags] = useState("");
   const [editContent, setEditContent] = useState("");
   const [commentText, setCommentText] = useState("");
-  const [commentingId, setCommentingId] = useState(null); // To track which blog is being commented on
+  const [commentingId, setCommentingId] = useState(null);
+  const [expandedBlog, setExpandedBlog] = useState(null);
 
   const isLoggedIn = !!sessionStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
@@ -29,9 +32,10 @@ const Home = () => {
       })
       .catch((error) => console.error("Error fetching blogs:", error));
   };
-  
+
   useEffect(() => {
     getLatestBlog();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   console.log(blogs);
 
@@ -54,7 +58,8 @@ const Home = () => {
         },
       })
       .then((res) => {
-        console.log("Liked successfully", res.data);
+        toast.success(res.data.message || "Liked successfully ✅");
+
         setBlogs((prevBlogs) =>
           prevBlogs.map((blog) =>
             blog._id === id ? { ...blog, likes: [...blog.likes, userId] } : blog
@@ -63,10 +68,9 @@ const Home = () => {
         getLatestBlog();
       })
       .catch((error) => {
-        console.error(
-          "Error liking post:",
-          error.response?.data || error.message
-        );
+        const errorMsg =
+          error.response?.data?.message || "Something went wrong";
+        toast.info(errorMsg);
       });
   };
 
@@ -77,14 +81,17 @@ const Home = () => {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
-      .then(() => {
+      .then((res) => {
         setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== id));
         setFilteredBlogs((prevBlogs) =>
           prevBlogs.filter((blog) => blog._id !== id)
         );
+        toast.success(res.data.message || "Blog deleted successfully");
       })
       .catch((error) => {
-        console.error("Error deleting post:", error);
+        const errorMsg =
+          error.response?.data?.message || "Something went wrong";
+        toast.error(errorMsg);
       });
   };
 
@@ -92,6 +99,7 @@ const Home = () => {
     const updatedData = {
       title: editTitle,
       content: editContent,
+      tags: editTags,
     };
 
     axios
@@ -100,7 +108,7 @@ const Home = () => {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },
       })
-      .then(() => {
+      .then((res) => {
         setBlogs((prevBlogs) =>
           prevBlogs.map((blog) =>
             blog._id === id ? { ...blog, ...updatedData } : blog
@@ -112,8 +120,14 @@ const Home = () => {
           )
         );
         setEditId(null); // close the form
+        toast.success(res.data.message || "Blog updated successfully");
       })
-      .catch((error) => console.error("Error updating post:", error));
+      .catch((error) => {
+        console.error("Error updating post:", error);
+        const errorMsg =
+          error.response?.data?.message || "Something went wrong";
+        toast.error(errorMsg);
+      });
   };
 
   const handleAddComment = async (blogId) => {
@@ -130,25 +144,28 @@ const Home = () => {
       });
 
       const data = await response.json();
+
       if (response.ok) {
-        alert("Comment added successfully");
+        toast.success(data.message || "Comment added successfully");
         setCommentText("");
         setCommentingId(null);
-        // Optional: refresh blog data here
-        getLatestBlog(); 
+        getLatestBlog(); // refresh the latest blog data
       } else {
-        alert(data.message || "Failed to add comment");
+        toast.error(data.message || "Failed to add comment");
       }
     } catch (error) {
       console.error("Error adding comment:", error);
-      alert("Something went wrong");
+      toast.error("Something went wrong while adding comment");
     }
   };
 
   return (
     <div className="home-container">
       <div className="header">
-        <h1>Latest Blog Posts</h1>
+        <h1>
+          <em>The Blog Space</em>
+        </h1>
+        <p>Share your thoughts and ideas with the world</p>
       </div>
       <div className="filter-buttons">
         {[
@@ -172,7 +189,7 @@ const Home = () => {
 
       <div className="blog-list">
         {filteredBlogs.map((blog) => (
-          <div key={blog._id.$oid} className="blog-card">
+          <div key={blog._id} className="blog-card">
             <div className="card-header">
               <div className="avatar">{blog.title[0].toUpperCase()}</div>
               <div className="title-info">
@@ -187,6 +204,7 @@ const Home = () => {
                       setEditId(blog._id);
                       setEditTitle(blog.title);
                       setEditContent(blog.content);
+                      setEditTags(blog.tags);
                     }}
                     title="Edit"
                   >
@@ -211,7 +229,29 @@ const Home = () => {
             </div>
 
             <div className="card-content">
-              <p>{blog.content}</p>
+              <p>
+                {expandedBlog === blog._id
+                  ? blog.content
+                  : blog.content.slice(0, 300) + "..."}
+                {blog.content.length > 300 && expandedBlog !== blog._id && (
+                  <button
+                    onClick={() => setExpandedBlog(blog._id)}
+                    className="read-more-btn"
+                  >
+                    Read More
+                  </button>
+                )}
+                {/* Show Show Less button if content is expanded */}
+                {expandedBlog === blog._id && (
+                  <button
+                    onClick={() => setExpandedBlog(null)}
+                    className="read-more-btn"
+                  >
+                    Show Less
+                  </button>
+                )}
+              </p>
+
               {editId === blog._id && (
                 <div className="edit-form">
                   <input
@@ -225,6 +265,18 @@ const Home = () => {
                     onChange={(e) => setEditContent(e.target.value)}
                     placeholder="Edit content"
                   />
+                  <select
+                    value={editTags}
+                    onChange={(e) => setEditTags(e.target.value)}
+                  >
+                    <option value="">Select Tag</option>
+                    <option value="food">Food</option>
+                    <option value="health">Health</option>
+                    <option value="lifestyle">Lifestyle</option>
+                    <option value="technology">Technology</option>
+                    <option value="travel">Travel</option>
+                    <option value="others">Others</option>
+                  </select>
                   <button onClick={() => handleUpdate(blog._id)}>Save</button>
                   <button onClick={() => setEditId(null)}>Cancel</button>
                 </div>
@@ -237,14 +289,17 @@ const Home = () => {
               </button>
               <span
                 style={{ cursor: "pointer", marginLeft: "1rem" }}
-                onClick={() =>
-                  commentingId === blog._id
-                    ? setCommentingId(null)
-                    : setCommentingId(blog._id)
-                }
+                onClick={() => {
+                  const token = sessionStorage.getItem("token");
+                  if (!token) {
+                    toast.info("Please log in to comment.");
+                  } else {
+                    setCommentingId(commentingId === blog._id ? null : blog._id);
+                  }
+                }}
               >
                 💬 {blog.comments.length} Comments
-              </span>{" "}
+              </span>
             </div>
 
             {isLoggedIn && commentingId === blog._id && (

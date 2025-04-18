@@ -13,13 +13,14 @@ const auth = (req, res, next) => {
             return res.status(401).json({ message: 'Unauthorized' });
         }
         req.user = decoded;
+        console.log(decoded)
         next();
     } catch (error) {
         console.error(error);
         if (error.name === 'TokenExpiredError') {
             return res.status(401).json({ message: 'Token expired' });
         }
-        return res.status(403).json({ message: 'Forbidden' });
+        return res.status(403).json({ message: 'Please Login' });
     }
 }
 module.exports = auth;

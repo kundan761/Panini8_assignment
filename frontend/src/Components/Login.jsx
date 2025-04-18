@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../constants/api";
 import axios from "axios";
 import "../styles/Login.css"; 
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -39,7 +40,7 @@ const Login = () => {
       sessionStorage.setItem("username", username);
       sessionStorage.setItem("userId", userId); 
   
-      console.log("Login successful:", res.data);
+      toast.success("Login successful!"); // Show success message
       navigate("/"); // redirect to home  after successful login
     } catch (err) {
       // Handle error (bad response, JSON error, etc.)
@@ -55,7 +56,7 @@ const Login = () => {
   return (
     <div className="signup-container">
       <div className="signup-card">
-        <h2 className="signup-title">Welcome Back</h2>
+        <h2 className="signup-title"><em>Welcome Back</em></h2>
         {error && <p className="error-msg">{error}</p>}
 
         <form onSubmit={handleSubmit} className="signup-form">

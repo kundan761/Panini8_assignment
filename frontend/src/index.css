@@ -3,6 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #FFFFFF;
-  
+  background-color: rgb(255, 255, 255);
+  font-family: Poppins, sans-serif;
 }

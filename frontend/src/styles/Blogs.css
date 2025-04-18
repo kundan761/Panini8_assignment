@@ -1,7 +1,7 @@
 .create-blog-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px 20px;
+    max-width: 88%;
+    margin: auto;
+    padding: 30px 70px 85px;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
@@ -10,7 +10,7 @@
   
   .create-blog-container h2 {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 10px;
     margin-bottom: 25px;
     color: #333;
   }
@@ -55,7 +55,7 @@
   }
   
   .blog-form button:hover {
-    background-color: #0056b3;
+    background-color: #059e0d;
   }
   
   .success-msg {

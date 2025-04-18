@@ -69,6 +69,11 @@ userRouter.get('/getUser/:id',authMiddleware, async(req, res) => {
 userRouter.put('/updateUser/:id',authMiddleware,async(req, res) => {
     try {
         const { username, email } = req.body;
+        const id = req.params.id;
+        const userId = req.user.userId;
+        if (id !== userId) {
+            return res.status(403).json({ message: 'You are not authorized to update this user' });
+        }
         const user = await User.findByIdAndUpdate(req.params.id, { username, email }, { new: true });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

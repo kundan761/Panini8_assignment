@@ -1,15 +1,14 @@
 .home-container {
     padding: 40px 20px;
-    max-width: 1000px;
+    max-width: 98%;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #FFFFFF;
     min-height: 100vh;
     box-sizing: border-box;
   }
   
   .header {
     text-align: center;
-    margin-top: 35px;
     margin-bottom: 30px;
   }
   
@@ -71,7 +70,7 @@
   .avatar {
     width: 40px;
     height: 40px;
-    background-color: #007bff;
+    background-color: #27ae60;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -106,7 +105,7 @@
   }
   
   .actions button:hover {
-    color: #007bff;
+    color: #057232;
   }
   
   .card-content {
@@ -206,6 +205,21 @@
     color: white;
   }
   
+  .read-more-btn {
+    background-color: transparent;
+    color: #333; 
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin-left: 10px; 
+    display: inline; 
+  }
+  
+  .read-more-btn:hover {
+    color: #000;
+  }
   
   
   @media (max-width: 600px) {

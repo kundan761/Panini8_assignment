@@ -61,7 +61,7 @@ const Signup = () => {
   return (
     <div className="signup-container">
       <div className="signup-card">
-        <h2 className="signup-title">Create Your Account</h2>
+        <h2 className="signup-title"><em>Create Your Account</em></h2>
         {error && <p className="error-msg">{error}</p>}
         {success && <p className="success-msg">{success}</p>}
 

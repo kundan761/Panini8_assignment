@@ -21,7 +21,7 @@ const Navbar = () => {
       <div className="container">
         {/* Logo */}
         <div className="logo">
-          <Link to="/">Blog</Link>
+          <Link to="/">TBS</Link>
         </div>
 
         {/* Desktop Nav */}
